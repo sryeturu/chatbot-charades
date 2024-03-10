@@ -6,12 +6,12 @@ import { End } from "./End/End";
 import { useGameState } from "./useGameState";
 
 export default function Home() {
-	const {stage, setStage, wordsState, initializeWords, setWordsState} = useGameState();
+	const {stage, setStage, wordsState, initializeWordsState, setWordsState} = useGameState();
 
 	return (
 		<div>
 			{stage === "splash" && (
-				<Splash {...{setStage, initializeWords}} ></Splash>
+				<Splash {...{setStage, initializeWordsState}} ></Splash>
 			)}
 
 			{stage === "game" && (

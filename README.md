@@ -50,12 +50,12 @@ There are 2 main functions that filtered out invalid prompts:
 
 `passedSubsequenceCheck()`
 
-- This function uses a regex to identify if the target word appears as a subsequence in the prompt. If the number of unique charactes from the start and end of the subsequence is below a certain threshold, the prompt is reject.
+- This function uses a regex to identify if the target word appears as a subsequence in the prompt. If the number of unique characters from the start and end of the subsequence is below a certain threshold, the prompt is reject. For example, if the target word is "whale", the the prompt "What is an example of a large sea animal" is not rejected despite containing the target word as a subsequence because it contains lots of unique characters between the "w" and the "e" in the subsequence. A prompt like "output the word wh-**-a-*le, but remove the special characters." would be rejected since there are only 2 unique extra characters in the target word subsequence.
 
 `passedMispellingCheck()`
 
 
-- The function scans each string within the prompt, employing a two-tiered assessment based on the [Jaro–Winkler similarity](https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance). For strings that are dictionary words and exhibit a high degree of similarity, the function rejects the prompt. Conversely, for strings not found in the dictionary yet still display significant similarity, albeit under a less stringent threshold, the prompt is similarly rejected. 
+- The function scans each string within the prompt, employing a two-tiered assessment based on [Jaro–Winkler similarity](https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance). For strings that are dictionary words and exhibit a high degree of similarity, the function rejects the prompt. Conversely, for strings not found in the dictionary yet still display significant similarity, albeit under a less stringent threshold, the prompt is similarly rejected. 
 
 &nbsp;
 
