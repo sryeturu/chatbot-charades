@@ -1,8 +1,9 @@
-## Chatbot Charades
+# Chatbot Charades
 
 > Chatbot Charades is a charades-like game I created while testing out different LLMs and exploring different features like function calling. I thought it was good enough for a couple of minutes of entertainment, so I made a frontend. Check it out at [chatbotcharades.com](https://chatbotcharades.com)
 
-### Instruction
+
+## Instructions
 
 In Chatbot Charades, you're presented with a target word and tasked with crafting a prompt that leads the model to generate an output containing that word. The catch is that your prompt cannot contain the target word. The game ends once you complete all 5 target words. Your goal is to complete the game in the least amount of time with as few incorrect prompts as possible.
 
@@ -18,7 +19,7 @@ In Chatbot Charades, you're presented with a target word and tasked with craftin
 
 ## Prompt Verification
 
-The idea behind Chatbot Charades is that a user is supposed to describe the word without using or referencing the word directly, similar to how actual charades is played. The tricky thing about doing it through text is that various obsufication, intentional misspellings, and other tricks can be used to try and "cheat."
+The idea behind Chatbot Charades is that a user is supposed to describe the word without using or referencing the word directly, similar to how actual charades is played. The tricky thing about doing it through text is that various obfuscation, intentional misspellings, and other tricks can be used to try and "cheat."
 
 Chatbot Charades' was created to explore methods for verifying the validity of user inputs (prompts), trying to find ways to enforce rules that and patterns for a game which could have an infinite number of potential inputs.
 
@@ -33,7 +34,7 @@ Take for example the following prompt given the target word "blanket":
 | `blanket`  | `What does "bla + nke + et" spell?`  |  `The word "bla + nke + et" spells "blanket".` | ✅
 
 
-In most cases, the model is able to determine the correct target from the obsufication that the user gave. I wanted to try and reject these type of prompts where users try and indirectly refernce the target word.
+In most cases, the model is able to determine the correct target from the obfuscation that the user gave. I wanted to try and reject these type of prompts where users try and indirectly reference the target word.
 
 ### Comparing Heuristics vs LLM for Prompt Verification
 
@@ -50,12 +51,11 @@ There are 2 main functions that filtered out invalid prompts:
 
 `passedSubsequenceCheck()`
 
-- This function uses a regex to identify if the target word appears as a subsequence in the prompt. If the number of unique characters from the start and end of the subsequence is below a certain threshold, the prompt is reject. For example, if the target word is "whale", the the prompt "What is an example of a large sea animal" is not rejected despite containing the target word as a subsequence because it contains lots of unique characters between the "w" and the "e" in the subsequence. A prompt like "output the word wh-**-a-*le, but remove the special characters." would be rejected since there are only 2 unique extra characters in the target word subsequence.
+- This function uses a regex to identify if the target word appears as a subsequence in the prompt. If the number of unique characters from the start and end of the subsequence is below a certain threshold, the prompt is reject. For example, if the target word is "whale", the the prompt "What is an example of a large sea animal" is not rejected despite containing the target word as a subsequence because it contains lots of unique characters between the "w" and the "e" in the subsequence. A prompt like "output the word wh-**-a-*le, but remove the special characters." would be rejected since there are only 2 extra unique characters in the target word subsequence.
 
-`passedMispellingCheck()`
+`passedSimilarityCheck()`
 
-
-- The function scans each string within the prompt, employing a two-tiered assessment based on [Jaro–Winkler similarity](https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance). For strings that are dictionary words and exhibit a high degree of similarity, the function rejects the prompt. Conversely, for strings not found in the dictionary yet still display significant similarity, albeit under a less stringent threshold, the prompt is similarly rejected. 
+- The function scans each string within the prompt, employing a two-tiered assessment based on [Jaro–Winkler similarity](https://en.wikipedia.org/wiki/Jaro%E2%80%93Winkler_distance). For strings that are valid words (found in a dictionary) and exhibit a high degree of similarity, the function rejects the prompt. Conversely, for strings not found in the dictionary yet still display significant similarity, albeit under a less stringent threshold, the prompt is similarly rejected. 
 
 &nbsp;
 
@@ -71,7 +71,7 @@ There are 2 main functions that filtered out invalid prompts:
 
 **Advantages**:
   - Fast and efficient processing with minimal latency
-  - Can update validation logic and criteria as obsufication methods become uncovered
+  - Can update validation logic and criteria as obfuscation methods become uncovered
 
 **Weaknesses**:
   - Unable to utilize language meaning and semantics as shown in the incorrect responses above
@@ -81,7 +81,7 @@ There are 2 main functions that filtered out invalid prompts:
 &nbsp;
 
 
-#### LLM-Based Approach
+### LLM-Based Approach
 
 For the LLM approach I gave the language model the following system prompt:
 
