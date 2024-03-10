@@ -169,7 +169,7 @@ export function Game({ setStage, wordsState, setWordsState }: GameProps) {
 
 				<div className='flex flex-col items-center gap-16'>
 					{nextButtonStatus !== "hidden" && (
-						<button className="w-[143px] h-[54px] rounded-md flex items-center justify-center my-pulse bg-gray-600" type="submit" onClick={handleNext}>
+						<button className="w-[143px] h-[54px] rounded-md flex items-center justify-center pulse bg-gray-600" type="submit" onClick={handleNext}>
 							<span className="pr-2 text-sm tracking-widest text-white-2">{nextButtonStatus === "next" ? "NEXT" : "FIN"}</span>
 							{nextButtonStatus === "next" && (
 								<Image className="pb-2" src={nextArrow} alt="next arrow" />
