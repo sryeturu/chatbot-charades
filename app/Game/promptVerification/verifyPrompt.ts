@@ -48,7 +48,6 @@ async function passedSimilarityCheck(prompt: string, targetWord: string): Promis
             word = cleanWord(word);
 
             const similarityScore = jaroWinkler(word, targetWord);
-            console.log("Heere")
             if (similarityScore >= 0.92) {
                 return false;
             }

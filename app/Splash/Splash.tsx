@@ -6,10 +6,10 @@ import { TypewriterComponent } from "../utils/Typewriter";
 
 type SplashProps = {
 	setStage: Dispatch<SetStateAction<Stage>>;
-	initializeWords: (words: string[]) => void;
+	initializeWordsState: (words: string[]) => void;
 }
 
-export function Splash({ setStage, initializeWords }: SplashProps) {
+export function Splash({ setStage, initializeWordsState }: SplashProps) {
 	const [displayTitle, setDisplayTitle] = useState(false);
 	const [displayStartButton, setDisplayStartButton] = useState(false);
 
@@ -32,7 +32,7 @@ export function Splash({ setStage, initializeWords }: SplashProps) {
 			const [words, _] = await Promise.all([wordsPromise, promiseRef.current]);
 
 			if(words) {
-				initializeWords(words);
+				initializeWordsState(words);
 				setDisplayStartButton(true);    
 			}
 		};

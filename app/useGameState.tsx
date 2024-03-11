@@ -7,11 +7,11 @@ export function useGameState() {
     const [stage, setStage] = useState<Stage>("splash");
     const [wordsState, setWordsState] = useState<WordState[]>([]);
 
-    const initializeWords = (words: string[]) => {
+    const initializeWordsState = (words: string[]) => {
         const newWordState : WordState[] = words.map((word) => {return {word, guesses: 0, time: 0 }})
 
         setWordsState(newWordState);
     }
 
-    return {stage, setStage, wordsState, setWordsState, initializeWords};
+    return {stage, setStage, wordsState, setWordsState, initializeWordsState};
 }
