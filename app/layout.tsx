@@ -29,7 +29,7 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" className={`${inter.variable} ${cutive.variable}`}>
-            <Script>
+            <Script id="piwik">
                 {`
                     <script type="text/javascript">
                     (function(window, document, dataLayerName, id) {
