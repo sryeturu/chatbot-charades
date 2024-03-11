@@ -1,6 +1,7 @@
 import './globals.css';
 import { Cutive, Inter } from 'next/font/google';
 import type { Metadata } from 'next'
+import Script from 'next/script';
  
 export const metadata: Metadata = {
     title: "ChatBot Charades - AI word guessing game",
@@ -28,6 +29,18 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" className={`${inter.variable} ${cutive.variable}`}>
+            <Script
+                async
+                src="https://www.googletagmanager.com/gtag/js?id=G-W2RP9YXSB3"
+            />
+            <Script id="google-analytics">
+                {`
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', 'G-W2RP9YXSB3');
+                `}
+            </Script>
             <body>{children}</body>
         </html>
     );
