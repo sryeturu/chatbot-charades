@@ -31,7 +31,6 @@ export default function RootLayout({
         <html lang="en" className={`${inter.variable} ${cutive.variable}`}>
             <Script id="piwik">
                 {`
-                    <script type="text/javascript">
                     (function(window, document, dataLayerName, id) {
                     window[dataLayerName]=window[dataLayerName]||[],window[dataLayerName].push({start:(new Date).getTime(),event:"stg.start"});var scripts=document.getElementsByTagName('script')[0],tags=document.createElement('script');
                     function stgCreateCookie(a,b,c){var d="";if(c){var e=new Date;e.setTime(e.getTime()+24*c*60*60*1e3),d="; expires="+e.toUTCString();f="; SameSite=Strict"}document.cookie=a+"="+b+d+f+"; path=/"}
@@ -40,7 +39,6 @@ export default function RootLayout({
                     tags.async=!0,tags.src="https://chatbotcharades.containers.piwik.pro/"+id+".js"+qPString,scripts.parentNode.insertBefore(tags,scripts);
                     !function(a,n,i){a[n]=a[n]||{};for(var c=0;c<i.length;c++)!function(i){a[n][i]=a[n][i]||{},a[n][i].api=a[n][i].api||function(){var a=[].slice.call(arguments,0);"string"==typeof a[0]&&window[dataLayerName].push({event:n+"."+i+":"+a[0],parameters:[].slice.call(arguments,1)})}}(i[c])}(window,"ppms",["tm","cm"]);
                     })(window, document, 'dataLayer', 'dbde1a13-f9ea-4aab-8a8d-10602b933749');
-                    </script>
                 `}
             </Script>
             <body>{children}</body>
