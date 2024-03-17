@@ -1,6 +1,4 @@
 const fs = require('fs').promises;
-const inflect = require('inflect');
-
 
 // Function to read the grouped words from 'grouped_words.json'
 async function readGroupedWords() {
