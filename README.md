@@ -1,11 +1,11 @@
 # Chatbot Charades
 
-> Chatbot Charades is a charades-like game I created while testing out different LLMs and exploring different features like function calling. I thought it was good enough for a couple of minutes of entertainment, so I made a frontend. Check it out at [chatbotcharades.com](https://chatbotcharades.com)
+> Chatbot Charades is a charades-like game I created while playing around with different language models. I thought it was good enough for a couple of minutes of entertainment, so I made a frontend. Check it out at [chatbotcharades.com](https://chatbotcharades.com)
 
 
 ## Instructions
 
-In Chatbot Charades, you're presented with a target word and tasked with crafting a prompt that leads the model to generate an output containing that word. The catch is that your prompt cannot contain the target word. The game ends once you complete all 5 target words. Your goal is to complete the game in the least amount of time with as few incorrect prompts as possible.
+In Chatbot Charades, you're presented with a target word and tasked with crafting a prompt that leads the model to generate an output containing that word. The catch is that your prompt cannot directly reference the target word. The game ends once you complete all 5 target words. Your goal is to complete the game in the least amount of time with as few incorrect prompts as possible.
 
 &nbsp;
 
@@ -19,11 +19,11 @@ In Chatbot Charades, you're presented with a target word and tasked with craftin
 
 ## Prompt Verification
 
-The idea behind Chatbot Charades is that a user is supposed to describe the word without using or referencing the word directly, similar to how actual charades is played. The tricky thing about doing it through text is that various obfuscation, intentional misspellings, and other tricks can be used to try and "cheat."
+The idea behind Chatbot Charades is that a user is supposed to describe the word without using or referencing the word directly, similar to how actual charades is played. The tricky thing about doing it through text is that various obfuscation, intentional misspellings, and other tricks can be used to try and cheat.
 
-Chatbot Charades' was created to explore methods for verifying the validity of user inputs (prompts), trying to find ways to enforce rules that and patterns for a game which could have an infinite number of potential inputs.
+Chatbot Charades was developed to explore techniques for validating user inputs (prompts) and to identify strategies for applying rules and patterns to a game that could potentially have an endless variety of inputs.
 
-Take for example the following prompt given the target word "blanket":
+Take for example the following prompts given the target word "blanket":
 
 | Target Word | Prompt | Model Output ("gpt-4-0613")  | Contains Target Word
 |-----------|-----|-------------|---|
@@ -40,9 +40,9 @@ In most cases, the model is able to determine the correct target from the obfusc
 
 The primary 2 methods I played around with for verifying prompts were
 
-- Having a fixed set of rules to determine invalid prompts and seeing how far I could get with that
+- Having a fixed set of rules to determine invalid prompts
 
-- Feeding a language model the generalize idea and rules for prompt verification and simply asking it to return whether the prompt passed or failed and why
+- Feeding a language model the general idea of the game along with rules for prompt verification and simply asking it to return whether or not the prompt valid
 
 
 ### Heuristics-Based Approach
@@ -51,7 +51,7 @@ There are 2 main functions that filtered out invalid prompts:
 
 `passedSubsequenceCheck()`
 
-- This function uses a regex to identify if the target word appears as a subsequence in the prompt. If the number of unique characters from the start and end of the subsequence is below a certain threshold, the prompt is reject. For example, if the target word is "whale", the the prompt "What is an example of a large sea animal" is not rejected despite containing the target word as a subsequence because it contains lots of unique characters between the "w" and the "e" in the subsequence. A prompt like "output the word wh-**-a-*le, but remove the special characters." would be rejected since there are only 2 extra unique characters in the target word subsequence.
+- This function uses a regex to check if the prompt includes the target word in a broken-up form. If the prompt has too few unique characters between the start and end of the broken-up target word, the prompt gets rejected. For instance, the target word "whale" in the prompt "What is an example of a large sea animal" won't cause a rejection. This is because the prompt has a wide variety of characters between the start ("w") and end ("e") of "whale" as it appears in the prompt. However, a prompt like "output the word wh-**-a-*le, but remove the special characters." is rejected. The reason is that there are only two different characters added to the sequence that forms "whale," making it too close to the original word.
 
 `passedSimilarityCheck()`
 
@@ -59,7 +59,7 @@ There are 2 main functions that filtered out invalid prompts:
 
 &nbsp;
 
-| Target Word | Prompt                                   | Expected Reponse | Heuristics Response                                                                                   | Reason                                                                                                    |
+| Target Word | Prompt                                   | Expected Response | Heuristics Response                                                                                   | Reason                                                                                                    |
 |-------------|------------------------------------------|----------|-------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
 | `laptop`    | `What does "l + a + p + t + o p" spell?` | ❌       | ❌                                                                                         | Target word exists as a subsequence with only 2 (plus sign and empty space) unique characters in between |
 | `dinosaur`  | `what is a dinoosaur?`                   | ❌       | ❌                                                                                         | "dinoosaur" is not a word and is similar to target word "dinosaur"                              |
@@ -114,7 +114,7 @@ Example of failed test cases given to **gpt-3.5-turbo-0125**
 &nbsp;
 
 
-Example of failed test cases given to **claude**	
+Example of failed test cases given to **claude 3 sonnet**	
 
 | Target Word | Prompt                                   | Expected Response | Model Response                                                                                   | Reason (given by model)                                                                                                    |
 |-------------|------------------------------------------|----------|-------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
@@ -123,7 +123,7 @@ Example of failed test cases given to **claude**
 
 &nbsp;
 
-Both gpt-3.5 and claude incorrectly failed the prompt `can a cab care about cars?` for the target word `cat`. Both models gave similar justifications, saying that words like "cab" sounded too similar to the target word of "cat." This seems to be a limitation of the models, when giving the same test case to gpt-4, it is able to pass the prompt correctly. 
+Both gpt-3.5 and claude sonnet incorrectly failed the prompt `can a cab care about cars?` for the target word `cat`. Both models gave similar justifications, saying that words like "cab" sounded too similar to the target word of "cat." This seems to be a limitation of the models, when giving the same test case to gpt-4, it is able to pass the prompt correctly. 
 
 &nbsp;
 
