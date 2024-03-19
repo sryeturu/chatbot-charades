@@ -3,19 +3,17 @@
 > Chatbot Charades is a charades-like game I created while playing around with different language models. I thought it was good enough for a couple of minutes of entertainment, so I made a frontend. Check it out at [chatbotcharades.com](https://chatbotcharades.com)
 
 
+&nbsp;
+
 ## Instructions
 
 In Chatbot Charades, you're presented with a target word and tasked with crafting a prompt that leads the model to generate an output containing that word. The catch is that your prompt cannot directly reference the target word. The game ends once you complete all 5 target words. Your goal is to complete the game in the least amount of time with as few incorrect prompts as possible.
 
 &nbsp;
 
-
 <img src="example.gif" alt="example gameplay" align="center"/>
 
-
-
 &nbsp;
-
 
 ## Prompt Verification
 
