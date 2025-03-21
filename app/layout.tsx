@@ -29,11 +29,11 @@ export default function RootLayout({
 }) {
     return (
         <html lang="en" className={`${inter.variable} ${cutive.variable}`}>
-        <Script
-          src={`${process.env.NEXT_PUBLIC_UMAMI_SERVER_URL}/script.js`}
-          data-website-id={`${process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}`}
-          strategy="afterInteractive"
-        />
+            <Script
+                src={`${process.env.NEXT_PUBLIC_UMAMI_SERVER_URL}/script.js`}
+                data-website-id={`${process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}`}
+                strategy="afterInteractive"
+            />
             <body>{children}</body>
         </html>
     );

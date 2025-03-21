@@ -12,7 +12,7 @@ type OutputDisplayProps = {
 export function OutputDisplay({ targetWord, response, callback }: OutputDisplayProps) {
 	const isFinishedTypingRef = useRef<boolean>(false);
 
-	const textToDisplay = useTypewriterEffect(response.message, 25, () => { callback(); isFinishedTypingRef.current = true; });
+	const textToDisplay = useTypewriterEffect(response.message, 20, () => { callback(); isFinishedTypingRef.current = true; });
 	
 	function getBackgrounColorClass() {
 		if (!isFinishedTypingRef.current) {

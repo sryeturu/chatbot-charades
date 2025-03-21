@@ -120,7 +120,7 @@ export function Game({ setStage, wordsState, setWordsState }: GameProps) {
 			}
 			startTimer();
 			setResponse(null);
-		}, 3500);
+		}, 2700);
 	}
   
 	return (
@@ -176,7 +176,7 @@ export function Game({ setStage, wordsState, setWordsState }: GameProps) {
 							)}
 						</button>
 					)}
-					<div className="inline-flex space-x-2 pb-11">
+					<div className="inline-flex space-x-2 pb-24">
 						<Circles {...{ numberOfCircles: wordsState.length, filledCircles }}></Circles>
 					</div>
 				</div>
